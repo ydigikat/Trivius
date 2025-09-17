@@ -1,0 +1,13 @@
+# Build outputs - temporary project created by gw_sh
+temp_project/
+
+# But allow VS Code settings and devcontainer
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.devcontainer/*.json
+
+# Analog discovery files
+*.dwf3logic
+*.dwf3work
+

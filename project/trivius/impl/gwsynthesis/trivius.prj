@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-synthesis-project>
+<Project>
+    <Version>beta</Version>
+    <Device id="GW1NR-9C" package="QFN88P" speed="6" partNumber="GW1NR-LV9QN88PC6/I5"/>
+    <FileList>
+        <File path="/workspaces/Trivius/hdl/trivius_top.sv" type="verilog"/>
+        <File path="/workspaces/Trivius/hdl/clock_gen.sv" type="verilog"/>
+        <File path="/workspaces/Trivius/hdl/test_tone.sv" type="verilog"/>
+        <File path="/workspaces/Trivius/hdl/peripherals/i2s_tx.sv" type="verilog"/>
+        <File path="/workspaces/Trivius/hdl/peripherals/uart_tick_gen.sv" type="verilog"/>
+        <File path="/workspaces/Trivius/hdl/peripherals/uart_rx.sv" type="verilog"/>
+    </FileList>
+    <OptionList>
+        <Option type="disable_insert_pad" value="0"/>
+        <Option type="global_freq" value="48.000"/>
+        <Option type="include_path" value="/workspaces/Trivius/hdl"/>
+        <Option type="looplimit" value="2000"/>
+        <Option type="output_file" value="/workspaces/Trivius/project/trivius/impl/gwsynthesis/trivius.vg"/>
+        <Option type="print_all_synthesis_warning" value="1"/>
+        <Option type="ram_rw_check" value="0"/>
+        <Option type="top_module" value="trivius_top"/>
+        <Option type="vcc" value="1.2"/>
+        <Option type="verilog_language" value="sysv-2017"/>
+        <Option type="vhdl_language" value="vhdl-1993"/>
+    </OptionList>
+</Project>

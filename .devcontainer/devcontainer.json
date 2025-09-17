@@ -1,0 +1,42 @@
+{
+  "name": "trivius",
+  "image": "gowin-dev:latest",
+  "shutdownAction": "stopContainer",
+
+  // Create non-root user matching host UID/GID at runtime
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode",
+      "uid": "automatic",
+      "gid": "automatic",
+      "configureZshAsDefaultShell": false
+    }
+  },
+  "remoteUser": "vscode",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mshr-h.VerilogHDL",
+        "dalance.svls-vscode",
+        "aaron-bond.better-comments",
+        "alefragnani.Bookmarks"
+      ]
+    }
+  },
+
+  "mounts": [
+    "source=/dev,target=/dev,type=bind",
+    "source=${env:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
+  ],
+  "containerEnv": { "SSH_AUTH_SOCK": "/ssh-agent" },
+
+  "runArgs": ["--privileged"],
+
+  "postCreateCommand":
+    "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global core.fileMode false",
+
+  // Fix workspace perms
+  "postStartCommand":
+    "bash -lc 'OWN=$(stat -c %u ${containerWorkspaceFolder} || echo 0); if [ \"$OWN\" != \"$(id -u)\" ]; then sudo chown -R $(id -u):$(id -g) ${containerWorkspaceFolder}; fi' || true"
+}

@@ -1,0 +1,35 @@
+// ---------------------------------------------------------------------------------
+// Tang Nano 9K - Physical constraints
+// ---------------------------------------------------------------------------------
+//
+//      1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+//     67 86 85 84 83 82 81 80 79 77 76 75 74 73 72 71 70 5V 48 49 31 32 GD 3V3 
+//  USB                                                                       HDMI
+//     38 37 36 39 25 26 27 28 29 30 33 34 40 35 41 42 51 53 54 55 56 57 68 69   
+//
+// ---------------------------------------------------------------------------------
+
+// Clock and reset
+IO_LOC "i_clk"  52; IO_PORT "i_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+// IO_LOC "i_rst_n" 4; IO_PORT "i_rst_n" PULL_MODE=UP;
+
+// MIDI serial in
+IO_LOC "i_rx" 40; IO_PORT "i_rx" IO_TYPE=LVCMOS33;
+
+// I2S TX
+IO_LOC "o_lrclk" 36; IO_PORT "o_lrclk" IO_TYPE=LVCMOS33 DRIVE=4;   
+IO_LOC "o_bclk" 38; IO_PORT "o_bclk" IO_TYPE=LVCMOS33 DRIVE=4;   
+IO_LOC "o_sda" 37; IO_PORT "o_sda" IO_TYPE=LVCMOS33 DRIVE=4;
+
+// Debug probe points
+IO_LOC "o_dio[0]" 69; IO_PORT "o_dio[0]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[1]" 68; IO_PORT "o_dio[1]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[2]" 57; IO_PORT "o_dio[2]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[3]" 56; IO_PORT "o_dio[3]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[4]" 55; IO_PORT "o_dio[4]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[5]" 54; IO_PORT "o_dio[5]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[6]" 53; IO_PORT "o_dio[6]" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_dio[7]" 51; IO_PORT "o_dio[7]" IO_TYPE=LVCMOS33 DRIVE=4;
+
+
+

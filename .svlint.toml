@@ -1,0 +1,18 @@
+#
+# This file MUST be in UTF-8 format otherwise svls will not be able to load it.  Note that svlint --example
+# will create a UTF16-BOM file under Windows Powershell 7.0 which has to be converted.
+#
+
+[Options]
+exclude_paths = []
+indent = 2
+
+[rules]
+prefix_module = false
+prefix_inout = true
+prefix_input = true
+prefix_instance = false
+prefix_interface = false
+prefix_output = true
+prefix_package = false
+
