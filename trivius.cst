@@ -9,11 +9,10 @@
 //
 // ---------------------------------------------------------------------------------
 
-// Clock and reset
+// Clock
 IO_LOC "i_clk"  52; IO_PORT "i_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
-// IO_LOC "i_rst_n" 4; IO_PORT "i_rst_n" PULL_MODE=UP;
 
-// MIDI serial in
+// MIDI serial RX
 IO_LOC "i_rx" 40; IO_PORT "i_rx" IO_TYPE=LVCMOS33;
 
 // I2S TX
@@ -21,7 +20,7 @@ IO_LOC "o_lrclk" 36; IO_PORT "o_lrclk" IO_TYPE=LVCMOS33 DRIVE=4;
 IO_LOC "o_bclk" 38; IO_PORT "o_bclk" IO_TYPE=LVCMOS33 DRIVE=4;   
 IO_LOC "o_sda" 37; IO_PORT "o_sda" IO_TYPE=LVCMOS33 DRIVE=4;
 
-// Debug probe points
+// DEBUG 
 IO_LOC "o_dio[0]" 69; IO_PORT "o_dio[0]" IO_TYPE=LVCMOS33 DRIVE=4;
 IO_LOC "o_dio[1]" 68; IO_PORT "o_dio[1]" IO_TYPE=LVCMOS33 DRIVE=4;
 IO_LOC "o_dio[2]" 57; IO_PORT "o_dio[2]" IO_TYPE=LVCMOS33 DRIVE=4;

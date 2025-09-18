@@ -1,5 +1,5 @@
 # Build outputs - temporary project created by gw_sh
-temp_project/
+project/
 
 # But allow VS Code settings and devcontainer
 !.vscode/settings.json

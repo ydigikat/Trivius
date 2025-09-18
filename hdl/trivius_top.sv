@@ -47,7 +47,7 @@ i2s_tx it                                           // == I2S TX master (Philips
     .o_req(req)                                     // Sample request signal
 );
 
-test_tone tt                                        // == Trivial saw tooth generator ==
+test_tone tt                                        // == Trivial saw tooth generator (test tone) ==
 (
 .i_clk(aud_clk),                                    // Audio clock in (6MHz)
 .i_fcw(16'd615),                                    // Frequency control word
@@ -67,7 +67,6 @@ uart_rx #(.DIV(MIDI_DIV)) midi_rx                   // == MIDI RX UART ==
 assign o_bclk = bclk;                               // Bitclock out
 assign o_sda = sda;                                 // Serial data out
 assign o_lrclk = ws;                                // Word select out
-
 assign o_dio = midi_data;                           // Debug output MIDI byte
 
 endmodule
