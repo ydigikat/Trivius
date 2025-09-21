@@ -10,7 +10,6 @@ set TOP_MODULE ${DESIGN}_top
 set DEVICE GW1NR-LV9QN88PC6/I5
 set FAMILY GW1N-9C
 set PACKAGE QFN88P
-set FREQ 48
 set DEVICE_VER C
 set BOARD tangnano9k
 
@@ -60,36 +59,38 @@ if {[file exists $PROJ_DIR]} {
 create_project -name $DESIGN -dir $PROJ_DIR -pn $DEVICE -device_version $DEVICE_VER
 
 # Global configuration
-set_option -global_freq $FREQ
 set_option -output_base_name $DESIGN
 set_option -use_sspi_as_gpio 1
 
 # Synthesis configuration
 set_option -top_module $TOP_MODULE
 set_option -verilog_std sysv2017 
-set_option -print_all_synthesis_warning 1
 set_option -synthesis_tool gowinsynthesis
 set_option -include_path $RTL_DIR
 
-# PNR configuration
-set_option -oreg_in_iob 0 
+# All warnings on
+set_option -print_all_synthesis_warning 1
 
-# Top modules
+# PNR: No need to register io blocks, no high-speed signals and all module
+# outputs are registered in fabric.
+set_option -oreg_in_iob 0                
+   
+
+# Top module
 add_file "$RTL_DIR/${DESIGN}_top.sv"
-add_file "$RTL_DIR/clock_gen.sv"
-add_file "$RTL_DIR/test_tone.sv"
+
+# Board specific (clock, constraints etc)
+add_file "$RTL_DIR/board/clock_gen.sv"
+add_file "$RTL_DIR/board/${DESIGN}.cst"
+add_file "$RTL_DIR/board/${DESIGN}.sdc"
 
 # Peripherals
 add_file "$RTL_DIR/peripherals/i2s_tx.sv"
 add_file "$RTL_DIR/peripherals/uart_tick_gen.sv"
 add_file "$RTL_DIR/peripherals/uart_rx.sv"
 
-
-# Physical constraints
-add_file "$BASE_DIR/${DESIGN}.cst"
-
-# Timing constraints
-add_file "$BASE_DIR/${DESIGN}.sdc"
+# Audio 
+add_file "$RTL_DIR/audio/test_tone.sv"
 
 #Build
 puts "## Building"

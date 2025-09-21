@@ -1,6 +1,16 @@
 //------------------------------------------------------------------------------
 // Jason Wilden 2025
 //------------------------------------------------------------------------------
+// NOTE: I use bclk_r as a clock to drive FFs directly.  This is not a 
+// typical approach for FPGA design which should treat it as a clock enable (in
+// the system clock domain). 
+//
+// I've done this to mitigate a problem I've experienced with internal crosstalk,
+// use of high speed counters (dividers) and enable-logic make the problem worse.
+//
+// Refer: https://github.com/juj/gowin_flipflop_drainer
+//------------------------------------------------------------------------------
+
 `default_nettype none
 
 module i2s_tx (                                   // I2S TX Master (Philips standard)
