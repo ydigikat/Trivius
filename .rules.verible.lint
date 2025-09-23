@@ -1,0 +1,22 @@
+# lowRISC Style Guide Rules
+   # Based on https://github.com/lowRISC/style-guides/blob/master/VerilogCodingStyle.md
+   
+   # Disable rules that conflict with lowRISC style
+   -undersized-binary-literal,
+   -line-length=100,
+   +explicit-begin,
+   +always-ff-non-blocking,
+   +always-comb-blocking,
+   +case-missing-default,
+   +explicit-parameter-storage-type,
+   +forbidden-anonymous-structs-unions,
+   +forbidden-system-functions,
+   +module-filename,
+   +no-tabs,
+   +packed-dimensions-range-ordering,
+   +positive-meaning-parameter-name,
+   +proper-parameter-declaration,
+   +signal-name-style,
+   +struct-union-name-style,
+   +typedef-enums,
+   +typedef-structs-unions

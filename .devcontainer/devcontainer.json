@@ -18,9 +18,11 @@
     "vscode": {
       "extensions": [
         "mshr-h.VerilogHDL",
-        "dalance.svls-vscode",
+        "CHIPSAlliance.verible",
         "aaron-bond.better-comments",
-        "alefragnani.Bookmarks"
+        "alefragnani.Bookmarks",
+         "ms-vscode.hexdump",
+        "redhat.vscode-yaml"
       ]
     }
   },

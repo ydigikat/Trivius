@@ -1,3 +1,25 @@
 {
-  "editor.tabSize": 2
+   // Enable Verible Language Server
+  "verilog.languageServer.veribleVerilogLs.enabled": true,
+  
+  // Set Verible as the formatter for both Verilog and SystemVerilog
+  "verilog.formatting.verilogHDL.formatter": "verible-verilog-format",
+  "verilog.formatting.systemVerilog.formatter": "verible-verilog-format",
+  
+  // lowRISC style formatting arguments
+  "verilog.formatting.veribleVerilogFormatter.arguments": "--indentation_spaces=2 --assignment_statement_alignment=infer --case_items_alignment=infer --formal_parameters_alignment=preserve --named_parameter_alignment=flush-left --port_declarations_alignment=preserve",
+  
+  // Enable format on save
+  "editor.formatOnSave": true,
+  
+  // Set as default formatter for SystemVerilog files
+  "[systemverilog]": {
+    "editor.defaultFormatter": "mshr-h.veriloghdl"
+  },
+  "[verilog]": {
+    "editor.defaultFormatter": "mshr-h.veriloghdl"
+  },
+  
+  // Optional: Enable Verilator linting
+  "verilog.linting.linter": "verilator"
 }
