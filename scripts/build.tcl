@@ -15,7 +15,7 @@ set BOARD tangnano9k
 
 # Directories
 set BASE_DIR [file dirname [file normalize [file dirname [info script]]]]
-set RTL_DIR $BASE_DIR/hdl
+set RTL_DIR $BASE_DIR/rtl
 set PROJ_DIR $BASE_DIR/project
 set IMPL_DIR $PROJ_DIR/$DESIGN/impl
 
@@ -74,23 +74,18 @@ set_option -print_all_synthesis_warning 1
 # PNR: No need to register io blocks, no high-speed signals and all module
 # outputs are registered in fabric.
 set_option -oreg_in_iob 0                
+
+# Constraints
+add_file "$RTL_DIR/${DESIGN}.cst"
+add_file "$RTL_DIR/${DESIGN}.sdc"
    
-
-# Top module
+# RTL 
 add_file "$RTL_DIR/${DESIGN}_top.sv"
-
-# Board specific (clock, constraints etc)
-add_file "$RTL_DIR/board/clock_gen.sv"
-add_file "$RTL_DIR/board/${DESIGN}.cst"
-add_file "$RTL_DIR/board/${DESIGN}.sdc"
-
-# Peripherals
-add_file "$RTL_DIR/peripherals/i2s_tx.sv"
-add_file "$RTL_DIR/peripherals/uart_tick_gen.sv"
-add_file "$RTL_DIR/peripherals/uart_rx.sv"
-
-# Audio 
-add_file "$RTL_DIR/audio/test_tone.sv"
+add_file "$RTL_DIR/clock_gen.sv"
+add_file "$RTL_DIR/i2s_tx.sv"
+add_file "$RTL_DIR/uart_tick_gen.sv"
+add_file "$RTL_DIR/uart_rx.sv"
+add_file "$RTL_DIR/test_tone.sv"
 
 #Build
 puts "## Building"
