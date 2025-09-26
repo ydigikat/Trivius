@@ -69,20 +69,22 @@ module trivius_top (
   logic [7:0] midi_byte;
 
   midi_rx rx (
-      .i_clk  (clk),
-      .i_rst_n(rst_n),
-      .i_rx   (i_midi_rx),
-      .o_ready(midi_ready),
-      .o_data_byte (midi_byte)
+      .i_clk_aud    (clk_aud),
+      .i_aud_rst_n  (aud_rst_n),
+      .i_rx         (i_midi_rx),
+      .o_ready      (midi_ready),
+      .o_data_byte  (midi_byte)
   );
 
 
   //------------------------------------------------------------------------------
   // DEBUG probes
   //------------------------------------------------------------------------------
-  assign o_dio[0] = i_midi_rx;                  // MIDI serial in
-  assign o_dio[1] = (midi_byte == 'h90);        // Note on
-  assign o_dio[2] = (midi_byte == 'h80);        // Note off
+  assign o_dio[0] = i_midi_rx;  // MIDI serial in
+  assign o_dio[1] = (midi_byte == 'h90);  // Note on
+  assign o_dio[2] = (midi_byte == 'h80);  // Note off
+  assign o_dio[3] = midi_ready;
+  assign o_dio[15:8] = midi_byte;
 
 
 endmodule

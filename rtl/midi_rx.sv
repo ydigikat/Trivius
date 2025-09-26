@@ -4,15 +4,18 @@
 `default_nettype none
 
 module midi_rx (
-    input var logic     i_clk,
-    input var logic     i_rst_n,
+    input var logic     i_clk_aud,
+    input var logic     i_aud_rst_n,
     input var logic     i_rx,
     output logic        o_ready,
     output logic[7:0]   o_data_byte
 );
 
   // 48000000/(31250 * 16) -1 = 95
-  localparam unsigned MidiTickDiv = 95;
+  // localparam unsigned MidiTickDiv = 95;
+
+  // 1500000/(31250 * 16) -1 = 2;
+  localparam unsigned MidiTickDiv = 2;
 
   //---------------------------------------------------------------------------
   // States
@@ -28,13 +31,13 @@ module midi_rx (
   // State registers
   //---------------------------------------------------------------------------
   state_t state, state_n;
-  logic [7:0] tick_count, tick_count_n;
+  logic [2:0] tick_count, tick_count_n;
   logic [3:0] sample_count, sample_count_n;
   logic [2:0] bit_count, bit_count_n;
   logic [7:0] data_byte, data_byte_n;
 
-  always_ff @(posedge i_clk) begin
-    if (!i_rst_n) begin
+  always_ff @(posedge i_clk_aud) begin
+    if (!i_aud_rst_n) begin
       state <= IDLE;
       sample_count <= 0;
       bit_count <= 0;
@@ -64,7 +67,7 @@ module midi_rx (
 
     // Sampling tick generator
     tick_count_n = (tick_count == MidiTickDiv) ? 0 : tick_count + 1'b1;
-    tick = (tick_count==1);
+    tick = (tick_count == 1);
 
     unique case (state)
       IDLE:
@@ -86,7 +89,7 @@ module midi_rx (
       if (tick) begin
         if (sample_count == 15) begin
           sample_count_n = 0;
-          data_byte_n  = {i_rx, data_byte[7:1]};
+          data_byte_n = {i_rx, data_byte[7:1]};
           if (bit_count == 7) begin
             state_n = STOP;
           end else begin
@@ -111,7 +114,7 @@ module midi_rx (
   end
 
   //---------------------------------------------------------------------------
-  // Output logic
+  // Output logic (supress active sense messages (0xFE))
   //---------------------------------------------------------------------------
   assign o_data_byte = data_byte == 'hFE ? 0 : data_byte;
 
