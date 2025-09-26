@@ -13,12 +13,12 @@
 IO_LOC "i_clk"  52; IO_PORT "i_clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
 
 // MIDI serial RX
-IO_LOC "i_rx" 40; IO_PORT "i_rx" IO_TYPE=LVCMOS33;
+IO_LOC "i_midi_rx" 40; IO_PORT "i_midi_rx" IO_TYPE=LVCMOS33;
 
 // I2S TX
-IO_LOC "o_lrclk" 36; IO_PORT "o_lrclk" IO_TYPE=LVCMOS33 DRIVE=4;   
-IO_LOC "o_bclk" 38; IO_PORT "o_bclk" IO_TYPE=LVCMOS33 DRIVE=4;   
-IO_LOC "o_sda" 37; IO_PORT "o_sda" IO_TYPE=LVCMOS33 DRIVE=4;
+IO_LOC "o_aud_lrclk" 36; IO_PORT "o_aud_lrclk" IO_TYPE=LVCMOS33 DRIVE=4;   
+IO_LOC "o_aud_bclk" 38; IO_PORT "o_aud_bclk" IO_TYPE=LVCMOS33 DRIVE=4;   
+IO_LOC "o_aud_sda" 37; IO_PORT "o_aud_sda" IO_TYPE=LVCMOS33 DRIVE=4;
 
 // DEBUG 
 IO_LOC "o_dio[0]" 69; IO_PORT "o_dio[0]" IO_TYPE=LVCMOS33 DRIVE=4;

@@ -1,31 +1,37 @@
-//-------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Jason Wilden 2025
-//-------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 `default_nettype none
 
-module uart_tick_gen(                             // Generates the oversampling tick for UART
-  input var logic i_clk,                          // System clock (48MHz)
-  input var logic i_reset_n,                      // Sync reset signal
-  input var logic[10:0] i_div,                    // Clock divider
-  output logic o_tick                             // Oversampling tick (should be 16 x baudrate)
+module uart_tick_gen (
+    input var logic       i_clk,
+    input var logic       i_rst_n,
+    input var logic[10:0] i_div,
+    output logic          o_tick
 );
 
-logic [10:0] r_ps, r_ns;                          // State registers
+  //---------------------------------------------------------------------------
+  // State registers
+  //---------------------------------------------------------------------------
+  logic [10:0] tick_cnt, tick_cnt_n;
 
-
-always_ff @(posedge i_clk) begin                  // Drive state registers
-  if(!i_reset_n) begin
-    r_ps <= 0;                                    // Hold during reset
-  end else begin
-    r_ps <= r_ns;                                 
+  always_ff @(posedge i_clk) begin
+    if (!i_rst_n) begin
+      tick_cnt <= 11'b0;
+    end else begin
+      tick_cnt <= tick_cnt_n;
+    end
   end
-end
 
-assign r_ns = (r_ps == i_div) ?                   // Next state logic, increment counter or
-  0 : 11'(r_ps + 1);                              // reset to 0 if at maximum.
+  //---------------------------------------------------------------------------
+  // Next state logic
+  //---------------------------------------------------------------------------
+  assign tick_cnt_n = (tick_cnt == i_div) ? 0 : 11'(tick_cnt + 11'd1);
 
 
-// Output
-assign o_tick = (r_ps == 1);                      // Output a tick each time counter cycles
+  //---------------------------------------------------------------------------
+  // Output logic
+  //---------------------------------------------------------------------------
+  assign o_tick = (tick_cnt == 1);
 
 endmodule
