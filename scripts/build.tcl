@@ -16,6 +16,7 @@ set BOARD tangnano9k
 # Directories
 set BASE_DIR [file dirname [file normalize [file dirname [info script]]]]
 set RTL_DIR $BASE_DIR/rtl
+set CONSTRAINT_DIR $BASE_DIR/constraints
 set PROJ_DIR $BASE_DIR/project
 set IMPL_DIR $PROJ_DIR/$DESIGN/impl
 
@@ -76,8 +77,8 @@ set_option -print_all_synthesis_warning 1
 set_option -oreg_in_iob 0                
 
 # Constraints
-add_file "$RTL_DIR/${DESIGN}.cst"
-add_file "$RTL_DIR/${DESIGN}.sdc"
+add_file "${CONSTRAINT_DIR}/${DESIGN}.cst"
+add_file "${CONSTRAINT_DIR}/${DESIGN}.sdc"
    
 # RTL 
 add_file "$RTL_DIR/${DESIGN}_top.sv"
