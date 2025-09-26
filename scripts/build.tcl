@@ -84,8 +84,7 @@ add_file "${CONSTRAINT_DIR}/${DESIGN}.sdc"
 add_file "$RTL_DIR/${DESIGN}_top.sv"
 add_file "$RTL_DIR/clock_gen.sv"
 add_file "$RTL_DIR/i2s_tx.sv"
-add_file "$RTL_DIR/uart_tick_gen.sv"
-add_file "$RTL_DIR/uart_rx.sv"
+add_file "$RTL_DIR/midi_rx.sv"
 add_file "$RTL_DIR/test_tone.sv"
 
 #Build

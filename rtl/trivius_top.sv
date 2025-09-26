@@ -9,7 +9,7 @@ module trivius_top (
     output logic        o_aud_bclk,
     output logic        o_aud_lrclk,
     output logic        o_aud_sda,
-    output logic[7:0]   o_dio
+    output logic[15:0]   o_dio
 );
   // 16x31250==500000, 48MHz/500KHz = 96 (0..95)
   localparam unsigned MidiDiv = 95;
@@ -68,10 +68,8 @@ module trivius_top (
   logic midi_ready;
   logic [7:0] midi_byte;
 
-  uart_rx #(
-      .DIV(MidiDiv)
-  ) midi_rx (
-      .i_clk  (i_clk),
+  midi_rx rx (
+      .i_clk  (clk),
       .i_rst_n(rst_n),
       .i_rx   (i_midi_rx),
       .o_ready(midi_ready),
@@ -82,6 +80,9 @@ module trivius_top (
   //------------------------------------------------------------------------------
   // DEBUG probes
   //------------------------------------------------------------------------------
-  assign o_dio = midi_byte;
+  assign o_dio[0] = i_midi_rx;                  // MIDI serial in
+  assign o_dio[1] = (midi_byte == 'h90);        // Note on
+  assign o_dio[2] = (midi_byte == 'h80);        // Note off
+
 
 endmodule
