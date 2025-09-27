@@ -2,6 +2,7 @@
 // Jason Wilden 2025
 //------------------------------------------------------------------------------
 `default_nettype none
+`include "types.svh"
 
 module trivius_top (
     input var logic     i_clk,
@@ -65,26 +66,36 @@ module trivius_top (
   //------------------------------------------------------------------------------
   // MIDI processing
   //------------------------------------------------------------------------------
-  logic midi_ready;
-  logic [7:0] midi_byte;
 
-  midi_rx rx (
-      .i_clk_aud    (clk_aud),
-      .i_aud_rst_n  (aud_rst_n),
-      .i_rx         (i_midi_rx),
-      .o_ready      (midi_ready),
-      .o_data_byte  (midi_byte)
+  logic msg_valid;
+  logic[1:0] msg_len;
+  midi_byte_t msg[3];
+  logic buffer_empty;
+  logic buffer_full;
+
+  midi_reader mr
+  (
+    .i_clk_aud(clk_aud),
+    .i_aud_rst_n(aud_rst_n),
+    .i_midi_rx(i_midi_rx),
+    .i_channel(MidiOmni),
+    .o_msg_valid(msg_valid),
+    .o_msg_len(msg_len),
+    .o_msg(msg),
+    .o_buffer_empty(buffer_empty),
+    .o_buffer_full(buffer_full)
   );
-
 
   //------------------------------------------------------------------------------
   // DEBUG probes
   //------------------------------------------------------------------------------
   assign o_dio[0] = i_midi_rx;  // MIDI serial in
-  assign o_dio[1] = (midi_byte == 'h90);  // Note on
-  assign o_dio[2] = (midi_byte == 'h80);  // Note off
-  assign o_dio[3] = midi_ready;
-  assign o_dio[15:8] = midi_byte;
+
+  assign o_dio[1] = (msg[0] == 'h90);  // Note on
+  assign o_dio[2] = (msg[0] == 'h80);  // Note off
+  assign o_dio[3] = msg_valid;
 
 
 endmodule
+
+`default_nettype wire

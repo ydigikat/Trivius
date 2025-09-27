@@ -83,3 +83,6 @@ module clock_gen (
 
 
 endmodule
+
+`default_nettype wire
+

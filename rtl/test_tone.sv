@@ -24,3 +24,6 @@ module test_tone (
   assign o_sample = sample;
 
 endmodule
+
+`default_nettype wire
+

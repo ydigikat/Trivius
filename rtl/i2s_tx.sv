@@ -97,3 +97,6 @@ module i2s_tx (
 
 
 endmodule
+
+`default_nettype wire
+

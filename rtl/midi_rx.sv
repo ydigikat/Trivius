@@ -2,19 +2,17 @@
 // Jason Wilden 2025
 //-----------------------------------------------------------------------------
 `default_nettype none
+`include "types.svh"
 
 module midi_rx (
     input var logic     i_clk_aud,
     input var logic     i_aud_rst_n,
     input var logic     i_rx,
-    output logic        o_ready,
-    output logic[7:0]   o_data_byte
+    output logic        o_valid,
+    output midi_byte_t  o_midi_byte
 );
 
-  // 48000000/(31250 * 16) -1 = 95
-  // localparam unsigned MidiTickDiv = 95;
-
-  // 1500000/(31250 * 16) -1 = 2;
+  // 1500000/(31250 * 16)-1 = 2;
   localparam unsigned MidiTickDiv = 2;
 
   //---------------------------------------------------------------------------
@@ -34,7 +32,7 @@ module midi_rx (
   logic [2:0] tick_count, tick_count_n;
   logic [3:0] sample_count, sample_count_n;
   logic [2:0] bit_count, bit_count_n;
-  logic [7:0] data_byte, data_byte_n;
+  midi_byte_t data_byte, data_byte_n;
 
   always_ff @(posedge i_clk_aud) begin
     if (!i_aud_rst_n) begin
@@ -60,7 +58,7 @@ module midi_rx (
 
   always_comb begin
     state_n = state;
-    o_ready = 0;
+    o_valid = 0;
     sample_count_n = sample_count;
     bit_count_n = bit_count;
     data_byte_n = data_byte;
@@ -103,7 +101,7 @@ module midi_rx (
       if (tick) begin
         if (sample_count == 15) begin
           state_n = IDLE;
-          o_ready = 1'b1;
+          o_valid = 1'b1;
         end else begin
           sample_count_n = sample_count + 1'b1;
         end
@@ -116,7 +114,9 @@ module midi_rx (
   //---------------------------------------------------------------------------
   // Output logic (supress active sense messages (0xFE))
   //---------------------------------------------------------------------------
-  assign o_data_byte = data_byte == 'hFE ? 0 : data_byte;
+  assign o_midi_byte = data_byte == 'hFE ? 0 : data_byte;
 
 endmodule
+
+`default_nettype wire
 
